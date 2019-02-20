@@ -50,17 +50,28 @@ public class LoginedPlace {
            System.out.println("You start with (0,0)");  //100100
             System.out.println("a to left. w to up. s to down. d to right");
            for(;life&&going;){
+
+               System.out.println("You are at"+" "+location%1000+" "+location/1000+" "+"now!");
+               int scan = 0;
+               if(location%1000>0){if(!graph[location%1000-1][location/1000]){scan++;}}
+               if(location/1000<x-1){if(!graph[location%1000][location/1000+1]){scan++;}}
+               if(location%1000<x-1){if(!graph[location%1000+1][location/1000]){scan++;}}
+               if(location/1000>0){if(!graph[location%1000][location/1000-1]){scan++;}}
+               System.out.println("Your dangerous level is: "+scan);
+
                String k = up.next();
                int temp = location;
-               if(k.equals("d")&&location%1000<x-1){location++;}
+               if(k.equals("d")&&location%1000<x-1){location++;
+                   score++;}
                if(k.equals("a")&&location%1000>0){location--;}
-               if(k.equals("w")&&location/1000<x-1){location+=1000;}
+               if(k.equals("w")&&location/1000<x-1){location+=1000;
+                   score++;}
                if(k.equals("s")&&location/1000>0){location-=1000;}
-               score++;
+
 
                if(graph[location%1000][location/1000]){}
                else{heart--;
-                   System.out.println("You injure! You life left: "+heart);}
+                   System.out.println("!!!!!\nYou injure! You life left: "+heart+"\n!!!!!");}
 
                if(heart<=0){life = false;}
 
@@ -70,8 +81,10 @@ public class LoginedPlace {
            }
            if(score>hscore){hscore=score;}
            if(!life){System.out.print("Lost"); }
-            System.out.println("Your highest score is"+hscore);
-           break;
+            System.out.println("Your highest score is: "+hscore);
+           System.out.println("Restart?(Y/N)");
+           if(!up.next().equals("Y"))
+           {break;}
         }
     }
 }
